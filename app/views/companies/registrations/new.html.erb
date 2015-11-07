@@ -4,9 +4,18 @@
   <%= devise_error_messages! %>
 
   <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
+    <%= f.label :企業名 %><br />
+    <%= f.text_field :company_name, autofocus: true %>
   </div>
+  
+  <div class="field">
+    <%= f.label :ご担当者名 %><br />
+    <%= f.text_field :person, autofocus: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :ご担当者emailアドレス %><br />
+    <%= f.email_field :email, autofocus: true %>
 
   <div class="field">
     <%= f.label :password %>
@@ -20,7 +29,22 @@
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, autocomplete: "off" %>
   </div>
+  
+  <div class="field">
+    <%= f.label :業界 %><br />
+    <%= f.select :industry, ["金融","IT・通信","製造業","コンサルティング","メディア","飲食・小売","旅行","人材","ファッション・美容","インターネット","その他"],  :prompt => "選択してください" %>
+  </div>
 
+  <div class="field">
+    <%= f.label :企業従業員規模 %><br />
+    <%= f.select :company_size, ["~10人","10~50人","50~100人","100人~500人","500人~"],  :prompt => "選択してください" %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :企業ホームページ %><br />
+    <%= f.text_field :company_hp, autofocus: true %>
+  </div>
+  
   <div class="actions">
     <%= f.submit "Sign up" %>
   </div>

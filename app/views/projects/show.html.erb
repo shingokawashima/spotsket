@@ -8,9 +8,15 @@
       <p><%= @project.name %></p>
     </div>
     
+    <div class="bidders_for_project">
+    <% if company_signed_in? %>
+      <p>興味のあるユーザー:<%= link_to "@project.bidded_bids.count", bids_project_path(@project) %></p>
+    <% end %>
+    </div>
+    
     <div class="project_content">
       <h2>案件の種類</h2>
-      <p><%= @project.type %></p>
+      <p><%= @project.project_type %></p>
     </div>
     
     <div class="project_content">
@@ -33,9 +39,14 @@
       <p><%= @project.hours %></p>
     </div>
 
-    <div class="project_content">
-      <h2>締め切り</h2>
+    <div class="field">
+      <h2>案件自体の締め切り</h2>
       <p><%= @project.period %></p>
+    </div>
+  
+    <div class="field">
+      <h2>募集の締め切り</h2>
+      <p><%= @project.closed_on %></p>
     </div>
     
     <div class="project_content">
@@ -64,7 +75,6 @@
     <% if company_signed_in? %>
     <%= link_to "edit", edit_project_path(@project) %>
     <%= link_to "destroy", @project, method: :delete, data: { confirm: '削除してもよろしいですか？' } %>
-
     <% end %>
   </div>
 </div>

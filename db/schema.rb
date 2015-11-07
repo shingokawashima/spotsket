@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151102043353) do
+ActiveRecord::Schema.define(version: 20151107201959) do
 
   create_table "bids", force: :cascade do |t|
     t.integer  "bidder_id"
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 20151102043353) do
     t.string   "industry"
     t.string   "company_hp"
     t.string   "company_size"
+    t.string   "person"
   end
 
   add_index "companies", ["email"], name: "index_companies_on_email", unique: true
@@ -69,10 +70,11 @@ ActiveRecord::Schema.define(version: 20151102043353) do
     t.integer  "budget"
     t.integer  "hours"
     t.date     "period"
-    t.string   "type"
     t.string   "emergent"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
+    t.date     "closed_on"
+    t.string   "project_type"
   end
 
   add_index "projects", ["company_id"], name: "index_projects_on_company_id"

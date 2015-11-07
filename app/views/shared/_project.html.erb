@@ -1,6 +1,7 @@
 <li id="project-<%= project.id %>">
-  <span class="content"><%= link_to project.name, project %></span></br>
-  <span class="content"><%= project.description %></span></br>
+  <span class="content"><p>タイトル<%= link_to project.name, project %></span></br>
+  <span class="content"><p>興味のあるユーザー：<%= project.bidded_bids.count %>人</p></span></br>
+  <span class="content"><p>概要：</p><%= project.description %></span></br>
   <span class="timestamp">
     Posted <%= time_ago_in_words(project.created_at) %> ago.
   </span>

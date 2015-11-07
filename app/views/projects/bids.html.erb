@@ -1,5 +1,5 @@
 <ul>
-  <% projects.each do |p| %>
+  <% @students.each do |p| %>
     <li id="project-<%= p.id %>">
       <span class="content"><%= link_to p.name, p %></span></br>
       <span class="content"><%= p.project_type %></span></br>

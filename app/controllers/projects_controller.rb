@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 class ProjectsController < ApplicationController
   ##before_action :company_signed_in, only: [:new, :create]
-  before_action :set_project, only: [:edit, :update, :destroy]
+  before_action :set_project, only: [:edit, :update, :destroy, :bids]
   
   def new
     @project = Project.new
@@ -51,11 +51,15 @@ class ProjectsController < ApplicationController
     redirect_to @project
   end
   
+  def bids
+    @students = @project.bidded_students.all
+  end
+    
     
   private
   
   def project_params
-    params.require(:project).permit(:name, :description)
+    params.require(:project).permit(:name, :description, :project_type, :period, :budget, :hours, :closed_on, :required_skills, :required_background, :emergent)
   end
   
   def set_project

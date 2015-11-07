@@ -12,7 +12,7 @@
       
   <div class="field">
     <%= f.label :プロジェクトの種類 %><br />
-    <%= f.text_field :type %>
+    <%= f.select :project_type, ["市場・競合調査","資料作成・修正","事業計画作成・修正","その他"],  :prompt => "選択してください" %>
   </div>
 
   <div class="field">
@@ -36,8 +36,13 @@
   </div>
   
   <div class="field">
-    <%= f.label :締め切り %><br />
-    <%= f.text_field :period %>
+    <%= f.label :案件自体の締め切り %><br />
+    <%= f.date_field :period %>
+  </div>
+
+  <div class="field">
+    <%= f.label :募集の締め切り %><br />
+    <%= f.date_field :closed_on %>
   </div>
   
   <div class="field">

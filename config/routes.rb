@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     member do
       get :bid
       delete :unbid
+      get :bids
     end
   end
   
