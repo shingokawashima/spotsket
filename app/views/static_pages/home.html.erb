@@ -1,0 +1,9 @@
+<h1>StaticPages#home</h1>
+<% unless student_signed_in? || company_signed_in? %>
+      <ul>
+        <li><%= link_to "Student Sign Up", new_student_registration_path %></li>
+        <li><%= link_to "Company Sign Up", new_company_registration_path %></li>
+      </ul>
+<% end %>
+
+

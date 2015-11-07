@@ -1,0 +1,14 @@
+  <div class="row">
+    <aside class="col-md-4">
+      <section class="company_info">
+      </section>
+      <section class="new_project">
+        <p><%= link_to "New Project", new_project_path %></p>
+      </section>
+    </aside>
+    <aside class="col-md-8">
+      <section class="current_project">
+        <%= render partial: 'shared/project', collection: @projects %>
+      </section>
+    </aside>
+  </div>

@@ -1,0 +1,70 @@
+<h2>投稿済み案件</h2>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="project_content">
+      
+      <h2>案件タイトル</h2>
+      <p><%= @project.name %></p>
+    </div>
+    
+    <div class="project_content">
+      <h2>案件の種類</h2>
+      <p><%= @project.type %></p>
+    </div>
+    
+    <div class="project_content">
+      <h2>案件の緊急性</h2>
+      <p><%= @project.emergent %></p>
+    </div>
+    
+    <div class="project_content">
+      <h2>概要</h2>
+      <p><%= @project.description %></p>
+    </div>
+    
+    <div class="project_content">
+      <h2>予算</h2>
+      <p><%= @project.budget %></p>
+    </div>
+    
+    <div class="project_content">
+      <h2>想定所要時間</h2>
+      <p><%= @project.hours %></p>
+    </div>
+
+    <div class="project_content">
+      <h2>締め切り</h2>
+      <p><%= @project.period %></p>
+    </div>
+    
+    <div class="project_content">
+      <h2>あると良いスキル</h2>
+      <p><%= @project.required_skills %></p>
+    </div>
+    
+    <div class="project_content">
+      <h2>あると良い経験</h2>
+      <p><%= @project.required_background %></p>
+    </div>
+    
+    <% if student_signed_in? %>
+      <h2>企業情報</h2>
+      <p><%= @project.company.id %></p>
+    <% end %>
+    
+    <% if student_signed_in? %>
+      <% if current_student.bidding?(@project) %>
+        <%= link_to "興味をなくす", unbid_project_path(@project), method: :delete %>
+      <% else %>
+        <%= link_to "興味ある", bid_project_path(@project) %>
+      <% end %>
+    <% end %>
+    
+    <% if company_signed_in? %>
+    <%= link_to "edit", edit_project_path(@project) %>
+    <%= link_to "destroy", @project, method: :delete, data: { confirm: '削除してもよろしいですか？' } %>
+
+    <% end %>
+  </div>
+</div>

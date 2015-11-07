@@ -1,0 +1,59 @@
+<h2>Edit a project</h2>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+
+<%= form_for(@project) do |f| %>
+
+  <div class="field">
+    <%= f.label :プロジェクト名 %><br />
+    <%= f.text_field :name, autofocus: true %>
+  </div>
+      
+  <div class="field">
+    <%= f.label :プロジェクトの種類 %><br />
+    <%= f.text_field :type %>
+  </div>
+
+  <div class="field">
+    <%= f.label :必要とするスキル %><br />
+    <%= f.text_field :required_skills %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :必要とする業界経験 %><br />
+    <%= f.text_field :required_background %>
+  </div>
+
+  <div class="field">
+    <%= f.label :予算 %><br />
+    <%= f.text_field :budget %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :時間 %><br />
+    <%= f.text_field :hours %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :締め切り %><br />
+    <%= f.text_field :period %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :緊急案件 %><br />
+    <%= f.text_field :emergent %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :概要 %><br />
+    <%= f.text_area :description, placeholder: "概要を記述してください" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "案件をポストする", class: "btn btn-large btn-primary" %>
+  </div>
+<% end %>
+
+  </div>
+</div>
