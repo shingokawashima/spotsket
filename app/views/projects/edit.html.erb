@@ -17,7 +17,8 @@
 
   <div class="field">
     <%= f.label :必要とするスキル %><br />
-    <%= f.text_field :required_skills %>
+    <%= f.check_box :required_skills, {}, 1, 0 %>
+    <%= f.check_box :required_skills, {}, 2, 0 %>
   </div>
   
   <div class="field">

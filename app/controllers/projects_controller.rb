@@ -5,6 +5,7 @@ class ProjectsController < ApplicationController
   
   def new
     @project = Project.new
+    4.times { @project.skills.build }
   end
   
   def create
