@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   }
   
   root to: 'static_pages#home'
+  
   resources :projects do
     member do
       get :bid
@@ -22,9 +23,15 @@ Rails.application.routes.draw do
       get :bids
     end
   end
+
+  resources :companies, only: [:index]
+
+  resources :students, only: [:index] do
+    member do
+      get :profile
+    end
+  end
   
-  get '/companies', to: 'companies#index'
-  get '/students', to: 'students#index'
-  
+  put "/project/:project_id/student/:id" => "projects#assigned", as: "assigned_project"
   
 end

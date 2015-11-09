@@ -19,6 +19,8 @@ class Student < ActiveRecord::Base
                                      dependent:   :destroy
   has_many :bidding_projects, through: :bidding_bids, source: :bidded
   
+  has_many :assigning_projects, class_name: "Project", foreign_key: "assigned_id", dependent: :destroy
+  
   def bidding?(project)
    bidding_projects.include?(project)
   end

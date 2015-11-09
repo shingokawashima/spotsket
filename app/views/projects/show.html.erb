@@ -10,7 +10,7 @@
     
     <div class="bidders_for_project">
     <% if company_signed_in? %>
-      <p>興味のあるユーザー:<%= link_to "@project.bidded_bids.count", bids_project_path(@project) %></p>
+      <p>興味のあるユーザー:<%= link_to @project.bidded_bids.count, bids_project_path(@project) %></p>
     <% end %>
     </div>
     
@@ -58,6 +58,14 @@
       <h2>あると良い経験</h2>
       <p><%= @project.required_background %></p>
     </div>
+    
+    <div class="project_content">
+      <h2>案件受注が決まった学生</h2>
+      <% if @project.assigned_student != nil %>
+        <p><%= @project.assigned_student.name %></p>
+      <% end %>
+    </div>
+    
     
     <% if student_signed_in? %>
       <h2>企業情報</h2>

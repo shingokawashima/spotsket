@@ -1,0 +1,58 @@
+<h2>ユーザー詳細</h2>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    
+    <div class="assignment">
+      <% if company_signed_in? %>
+        <%= link_to "一覧に戻る", :back %>
+      <% end %>
+    </div>
+   
+    <div class="student_content">
+      <h2>名前</h2>
+      <p><%= @student.name %></p>
+    </div>
+    
+    <div class="student_content">
+      <h2>大学</h2>
+      <p><%= @student.university %></p>
+    </div>
+
+    <div class="student_content">
+      <h2>専攻</h2>
+      <p><%= @student.major %></p>
+    </div>
+    
+    <div class="student_content">
+      <h2>卒業年</h2>
+      <p><%= @student.graduation_year %></p>
+    </div>
+
+    <div class="student_content">
+      <h2>希望時給</h2>
+      <p><%= @student.salary %></p>
+    </div>
+
+    <div class="student_content">
+      <h2>興味のある分野</h2>
+      <p><%= @student.interests %></p>
+    </div>
+
+    <div class="student_content">
+      <h2スキル</h2>
+      <p><%= @student.skills %></p>
+    </div>
+
+    <div class="student_content">
+      <h2>自己紹介</h2>
+      <p><%= @student.introduction %></p>
+    </div>
+    
+    <div class="student_content">
+      <h2>リンクトインHPアドレス</h2>
+      <p><%= @student.linkedin_hp %></p>
+    </div>
+
+  </div>
+</div>
