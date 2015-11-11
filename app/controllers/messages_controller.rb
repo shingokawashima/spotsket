@@ -1,8 +1,19 @@
 class MessagesController < ApplicationController
-  before_action :set_student, only: [:new, :create]
-  before_action :set_company, only: [:new, :create]
+  before_action :set_student, only: [:new, :create,:update]
+  before_action :set_company, only: [:new, :create,:update]
+  
+  def index
+    @student = current_student
+    @messages = current_student.messages
+    @companies = @student.mailing_companies.uniq
+  end
+  
   
   def new
+    @messages = Message.all.where(student: @student).where(company: @company)
+  end
+  
+  def update
     if student_signed_in?
       @messages = CompanyMessage.where(student: current_student)
       @messages.each do |message|
@@ -21,6 +32,7 @@ class MessagesController < ApplicationController
         end
       end
     end
+    redirect_to message_path(@student, @company)
   end
   
   def create

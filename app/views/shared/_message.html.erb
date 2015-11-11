@@ -1,6 +1,7 @@
 <li id="message-<%= message.id %>">
   <span class="sender"><%= message.sender %></span> 
   <span class="content"><%= message.content %></span>
+  <span class="content"><%= message.read_flg %></span>  
   <span class="timestamp">
     Posted <%= time_ago_in_words(message.created_at) %> ago.
   </span>

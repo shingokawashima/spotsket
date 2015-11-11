@@ -1,0 +1,26 @@
+<div class="row">
+  <aside class="col-md-4">
+      <section class="project_search">
+        <p>Search your project here</p>
+      </section>
+      
+      <section class="user_info">
+      <%= render 'shared/user_info', student: @student %>
+      </section>
+  </aside>
+  <div class="col-md-8">
+      <h3>やりとり一覧</h3>
+      
+      <% if student_signed_in? %>
+        <ul>
+          <% @companies.each do |c| %>
+            <li>
+              <span class="company"><%= c.company_name %></span>
+              <span class="company"><%= c.sent_messages.order("created_at").last.content %></span> 
+              <%= link_to "メッセージを見る・書く", message_path(current_student, c), method: :put %>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+  </div>
+</div>
