@@ -17,11 +17,10 @@
 
   <div class="field">
     <%= f.label :必要とするスキル %><br />
-    <%= f.fields_for :required_skills do |rs| %>
-      <%= rs.check_box 1 %>xxx
-      <%= rs.check_box :b %>yyy
-      <%= rs.check_box :c %>zzz
-    <% end %>
+    <%= f.check_box :skill1, {}, true, false %>Skill 1
+    <%= f.check_box :skill2, {}, true, false %>SKill 2
+    <%= f.check_box :skill3, {}, true, false %>Skill 3
+    <%= f.check_box :skill3, {}, true, false %>Skill 4
   </div>
   
   <div class="field">

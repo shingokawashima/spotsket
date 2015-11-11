@@ -1,0 +1,2 @@
+class StudentMessage < Message
+end

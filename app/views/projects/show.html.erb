@@ -51,7 +51,12 @@
     
     <div class="project_content">
       <h2>あると良いスキル</h2>
-      <p><%= @project.required_skills %></p>
+      <ul>
+        <% if @project.skill1 %><li>SKILL 1</li><% end %>
+        <% if @project.skill2 %><li>SKILL 2</li><% end %>
+        <% if @project.skill3 %><li>SKILL 3</li><% end %>
+        <% if @project.skill4 %><li>SKILL 4</li><% end %>
+      </ul>
     </div>
     
     <div class="project_content">

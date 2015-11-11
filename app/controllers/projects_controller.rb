@@ -5,7 +5,6 @@ class ProjectsController < ApplicationController
   
   def new
     @project = Project.new
-    4.times { @project.skills.build }
   end
   
   def create
@@ -67,7 +66,10 @@ class ProjectsController < ApplicationController
   private
   
   def project_params
-    params.require(:project).permit(:name, :description, :project_type, :period, :budget, :hours, :closed_on, :required_skills, :required_background, :emergent, :assigned)
+    params.require(:project).permit(:name, :description, :project_type,
+      :period, :budget, :hours, :closed_on,
+      :skill1, :skill2, :skill3, :skill4,
+      :required_background, :emergent, :assigned)
   end
   
   def set_project

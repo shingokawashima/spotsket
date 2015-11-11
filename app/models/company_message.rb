@@ -1,0 +1,2 @@
+class CompanyMessage < Message
+end
