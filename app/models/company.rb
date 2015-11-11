@@ -7,4 +7,9 @@ class Company < ActiveRecord::Base
   has_many :projects, class_name: "Project"
   has_many :messages, class_name: "Message"
   
+  has_many :companymailing_messages, class_name: "Message", foreign_key: "company_id", dependent: :destroy
+  
+  #has_many :mailed_message, class_name:  "Message", foreign_key: "company_id", dependent:   :destroy
+  #has_many :mailing_students, through: :mailed_message, source: :student
+  
 end

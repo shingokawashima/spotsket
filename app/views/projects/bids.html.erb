@@ -1,16 +1,30 @@
-<ul>
-  <% @students.each do |p| %>
-    <li id="project-<%= p.id %>">
-      <span class="content"><%= link_to p.name, p %></span></br>
-      <span class="content"><%= p.project_type %></span></br>
-      <span class="content"><%= p.description %></span></br>
-      <span class="content"><%= p.period %></span></br>
-      <span class="content"><%= p.budget %></span></br>
-      <span class="content"><%= p.company.company_name %></span></br>
-      <span class="content"><%= p.company.industry %></span></br>
-      <span class="timestamp">
-        Posted <%= time_ago_in_words(p.created_at) %> ago.
-      </span>
-    </li>
-  <% end %>
-</ul>
+<h2>興味のあるユーザー</h2>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="bidded_users">
+
+      <ul>
+        <% @students.each do |p| %>
+        <li>
+          <span class="content"><%= p.name %></span></br>
+          <span class="content"><%= p.university %></span></br>
+          <span class="content"><%= p.major %></span></br>
+          <span class="content"><%= p.previous_company %></span></br>
+          <span class="content"><%= link_to "詳細を見る", profile_student_path(p) %></span></br>
+          
+          <% if @project.assigned_student == p %>
+            <p>この学生に決定</p>
+          <% end %>
+          
+          <% if @project.assigned_student == nil %>
+            <span class="content"><%= link_to "この学生に決定", assigned_project_path(@bid.bidded, p) %></span></br>
+          <% end %>
+            <span class="content"><%= link_to "この学生にコンタクト", message_path(p, current_company) %></span></br>
+        </li>
+       <% end %>
+      </ul>
+
+    </div>
+  </div>
+</div>

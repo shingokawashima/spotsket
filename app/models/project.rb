@@ -6,5 +6,6 @@ class Project < ActiveRecord::Base
                                      foreign_key: "bidded_id",
                                      dependent:   :destroy
   has_many :bidded_students, through: :bidded_bids, source: :bidder
-
+  
+  belongs_to :assigned_student, class_name: "Student", foreign_key: "assigned_id", dependent: :destroy
 end

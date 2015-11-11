@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   }
   
   root to: 'static_pages#home'
+  
   resources :projects do
     member do
       get :bid
@@ -22,9 +23,21 @@ Rails.application.routes.draw do
       get :bids
     end
   end
+
+  put "/project/:project_id/student/:id" => "projects#assigned", as: "assigned_project"
+
+  resources :companies, only: [:index]
+
+  resources :messages, only: [:index]
+  get "/message/:student_id/company/:id" => "messages#new", as: "message"
+  post "/message/:student_id/company/:id" => "messages#create"
+  put "/message/:student_id/company/:id" => "messages#update" 
+  delete "/message/:student_id/company/:id" => "messages#destroy" 
   
-  get '/companies', to: 'companies#index'
-  get '/students', to: 'students#index'
-  
+  resources :students, only: [:index] do
+    member do
+      get :profile
+    end
+  end
   
 end
