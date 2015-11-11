@@ -70,7 +70,7 @@
     <% if student_signed_in? %>
       <h2>企業情報</h2>
       <p><%= @project.company.name %></p>
-      <%= link_to "この会社に問い合わせる", message_path(current_student, @project.company) %>
+      <%= link_to "この会社に問い合わせる", message_path(current_student, @project.company), method: :put %>
     <% end %>
     
     <% if student_signed_in? %>
