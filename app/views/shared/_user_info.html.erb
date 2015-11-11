@@ -1,4 +1,9 @@
 <h3>My Profile</h3>
+　<% if current_student.student_image? %>
+　　<%= image_tag current_student.student_image.thumb.url %>
+　<% else %>
+　　<%= image_tag 'noimage.png' %>
+　<% end %>
 <h3><%= current_student.name %></h3>
 <h3>興味のある案件数:<%= current_student.bidding_projects.where(assigned_student: nil).where(done: nil).count %></h3>
 <h3>実績のある案件数:（工事中）</h3>

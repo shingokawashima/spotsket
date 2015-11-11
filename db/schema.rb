@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151111185811) do
+ActiveRecord::Schema.define(version: 20151111232418) do
 
   create_table "bids", force: :cascade do |t|
     t.integer  "bidder_id"
@@ -90,6 +90,7 @@ ActiveRecord::Schema.define(version: 20151111185811) do
     t.integer  "salary"
     t.text     "introduction"
     t.string   "linkedin_hp"
+    t.string   "student_image"
   end
 
   add_index "students", ["email"], name: "index_students_on_email", unique: true

@@ -7,6 +7,11 @@
       <ul>
         <% @students.each do |s| %>
         <li>
+　        <% if s.student_image? %>
+　　        <%= image_tag s.student_image.thumb.url %>
+　        <% else %>
+　　        <%= image_tag 'noimage.png' %>
+　        <% end %>
           <span class="content"><%= s.name %></span></br>
           <span class="content"><%= s.university %></span></br>
           <span class="content"><%= s.major %></span></br>
