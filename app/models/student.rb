@@ -21,6 +21,11 @@ class Student < ActiveRecord::Base
   
   has_many :assigning_projects, class_name: "Project", foreign_key: "assigned_id", dependent: :destroy
   
+  has_many :studentmailing_messages, class_name: "Message", foreign_key: "student_id", dependent: :destroy
+  
+  #has_many :mailing_message, class_name:  "Message", foreign_key: "student_id", dependent:   :destroy
+  #has_many :mailing_companies, through: :mailing_message, source: :company
+  
   def bidding?(project)
    bidding_projects.include?(project)
   end

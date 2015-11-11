@@ -4,6 +4,9 @@ class StudentsController < ApplicationController
   def index
     @projects = Project.where('closed_on >= ?', DateTime.now).where(assigned_student: nil)
     @student = current_student
+    if @student.studentmailing_messages.where(read_flg: "Unread").where(sender: "Company") != nil
+      flash[:notice] = "新しいメッセージがあります"
+    end
   end
   
   def profile

@@ -24,14 +24,20 @@ Rails.application.routes.draw do
     end
   end
 
+  put "/project/:project_id/student/:id" => "projects#assigned", as: "assigned_project"
+
   resources :companies, only: [:index]
 
+  resources :messages, only: [:index]
+  get "/message/:student_id/company/:id" => "messages#new", as: "message"
+  post "/message/:student_id/company/:id" => "messages#create"
+  put "/message/:student_id/company/:id" => "messages#update" 
+  delete "/message/:student_id/company/:id" => "messages#destroy" 
+  
   resources :students, only: [:index] do
     member do
       get :profile
     end
   end
-  
-  put "/project/:project_id/student/:id" => "projects#assigned", as: "assigned_project"
   
 end

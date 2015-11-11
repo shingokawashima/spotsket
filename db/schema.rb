@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151108050819) do
+ActiveRecord::Schema.define(version: 20151111011322) do
 
   create_table "bids", force: :cascade do |t|
     t.integer  "bidder_id"
@@ -51,14 +51,19 @@ ActiveRecord::Schema.define(version: 20151108050819) do
 
   create_table "messages", force: :cascade do |t|
     t.string   "type"
-    t.integer  "student_id"
-    t.integer  "company_id"
     t.integer  "reply_to_id"
     t.string   "title"
     t.text     "content"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "student_id"
+    t.integer  "company_id"
+    t.string   "sender"
+    t.string   "read_flg"
   end
+
+  add_index "messages", ["company_id"], name: "index_messages_on_company_id"
+  add_index "messages", ["student_id"], name: "index_messages_on_student_id"
 
   create_table "projects", force: :cascade do |t|
     t.integer  "company_id"

@@ -9,6 +9,8 @@ class CreateMessages < ActiveRecord::Migration
       t.text :content
 
       t.timestamps null: false
+      t.index [:student_id, :company_id], unique: true
+      
     end
   end
 end

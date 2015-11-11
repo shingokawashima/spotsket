@@ -1,0 +1,59 @@
+<p>MESSAGE CREATION</p>
+
+<aside class="col-md-4">
+  
+  <% if student_signed_in? %>
+    <section class="project_search">
+      <p>Search your project here</p>
+    </section>
+    <section class="user_info">
+      <%= render 'shared/user_info', student: @student %>
+    </section>
+  <% end %>
+  
+  <% if company_signed_in? %>
+    <section class="">
+    </section>
+    <section class="">
+    </section>
+  <% end %>
+  
+</aside>
+
+<div class="col-md-8">
+  
+  <% if student_signed_in?%>
+   <h3><%= @company.company_name %>とのやり取り</h3>
+      <% if @messages.any? %>
+        <ol class="messages">
+          <%= render partial: 'shared/message', collection: @messages %>
+        </ol>
+      <% end %>
+  
+    <%= form_tag message_path(current_student, @company), method: 'post' do %>
+      <div class="field">
+        <%= text_area_tag :content %>
+      </div>
+      <%= submit_tag "Post", class: "btn btn-primary" %>
+    <% end %>
+  <% end %>
+    
+  <% if company_signed_in?%>
+    <h3><%= @company.company_name %>とのやり取り</h3>
+      <% if @messages.any? %>
+        <ol class="messages">
+          <%= render partial: 'shared/message', collection: @messages %>
+        </ol>
+      <% end %>
+    
+      <%= form_tag message_path(@student, current_company), method: 'post' do %>
+        <div class="field">
+          <%= text_area_tag :content %>
+        </div>
+        <%= submit_tag "Post", class: "btn btn-primary" %>
+      <% end %>
+  <% end %>
+
+
+
+</div>

@@ -18,9 +18,9 @@
           <% end %>
           
           <% if @project.assigned_student == nil %>
-            <span class="content"><%= link_to "この学生に決定", assigned_project_path(@bid.bidded, p), method: :put, data: { confirm: 'この学生に決定しますか？（一度決定すると案件は非公開になり、もとに戻せません）' } %></span></br>
+            <span class="content"><%= link_to "この学生に決定", assigned_project_path(@bid.bidded, p) %></span></br>
           <% end %>
-          </span>
+            <span class="content"><%= link_to "この学生にコンタクト", message_path(p, current_company) %></span></br>
         </li>
        <% end %>
       </ul>

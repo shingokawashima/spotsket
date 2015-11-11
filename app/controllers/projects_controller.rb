@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 class ProjectsController < ApplicationController
   ##before_action :company_signed_in, only: [:new, :create]
-  before_action :set_project, only: [:edit, :update, :destroy, :bids]
+  before_action :set_project, only: [:show, :edit, :update, :destroy, :bids]
   
   def new
     @project = Project.new
@@ -18,7 +18,6 @@ class ProjectsController < ApplicationController
   end
   
   def show
-    @project = Project.find(params[:id])
   end
   
   def edit
