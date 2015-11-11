@@ -10,6 +10,7 @@ class Student < ActiveRecord::Base
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
   
+  has_many :messages, class_name: "Message", foreign_key: "student_id"
   has_many :received_messages, class_name: "ComapanyMessage", foreign_key: "student_id"
   has_many :sent_messages, class_name: "StudentMessage", foreign_key: "student_id"
 
