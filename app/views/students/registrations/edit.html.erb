@@ -27,6 +27,51 @@
     <%= f.password_field :current_password, autocomplete: "off" %>
   </div>
 
+  <div class="field">
+    <%= f.label :age %><br />
+    <%= f.text_field :age %>
+  </div>
+
+  <div class="field">
+    <%= f.label :University %><br />
+    <%= f.text_field :university %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :Major %><br />
+    <%= f.text_field :major %>
+  </div>
+
+  <div class="field">
+    <%= f.label :卒業年度 %><br />
+    <%= f.date_field :graduation_year %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :前職あるいは現職の企業名 %><br />
+    <%= f.text_field :previous_company %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :スキル %><br />
+    <%= f.text_field :skills%>
+  </div>
+  
+  <div class="field">
+    <%= f.label :興味のある分野 %><br />
+    <%= f.text_field :interests %>
+  </div>
+
+  <div class="field">
+    <%= f.label :時給の希望額 %><br />
+    <%= f.text_field :salary %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :自己紹介 %><br />
+    <%= f.text_field :introduction %>
+  </div>
+
   <div class="actions">
     <%= f.submit "Update" %>
   </div>

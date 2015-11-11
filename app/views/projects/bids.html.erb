@@ -5,22 +5,21 @@
     <div class="bidded_users">
 
       <ul>
-        <% @students.each do |p| %>
+        <% @students.each do |s| %>
         <li>
-          <span class="content"><%= p.name %></span></br>
-          <span class="content"><%= p.university %></span></br>
-          <span class="content"><%= p.major %></span></br>
-          <span class="content"><%= p.previous_company %></span></br>
-          <span class="content"><%= link_to "詳細を見る", profile_student_path(p) %></span></br>
+          <span class="content"><%= s.name %></span></br>
+          <span class="content"><%= s.university %></span></br>
+          <span class="content"><%= s.major %></span></br>
+          <span class="content"><%= s.previous_company %></span></br>
+          <span class="content"><%= link_to "詳細を見る", profile_student_path(s) %></span></br>
           
-          <% if @project.assigned_student == p %>
+          <% if @project.assigned_student == s %>
             <p>この学生に決定</p>
           <% end %>
-          
           <% if @project.assigned_student == nil %>
-            <span class="content"><%= link_to "この学生に決定", assigned_project_path(@bid.bidded, p) %></span></br>
+            <span class="content"><%= link_to "この学生に決定", assigned_project_path(@bid.bidded, s), method: :put, data: { confirm: 'この学生に依頼しますか？一度決定すると変更できません。' } %></span></br>
           <% end %>
-            <span class="content"><%= link_to "この学生にコンタクト", message_path(p, current_company) %></span></br>
+            <span class="content"><%= link_to "この学生にコンタクト", message_path(s, current_company) %></span></br>
         </li>
        <% end %>
       </ul>

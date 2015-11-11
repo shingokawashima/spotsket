@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151111050221) do
+ActiveRecord::Schema.define(version: 20151111185811) do
 
   create_table "bids", force: :cascade do |t|
     t.integer  "bidder_id"
@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 20151111050221) do
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
     t.boolean  "read_flg",    default: false
+    t.string   "sender"
   end
 
 # Could not dump table "projects" because of following NoMethodError

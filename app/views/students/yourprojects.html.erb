@@ -1,20 +1,22 @@
-  <div class="row">
-    <aside class="col-md-4">
-      <section class="company_info">
+<div class="row">
+  <aside class="col-md-4">
+      <section class="project_search">
+        <p>Search your project here</p>
       </section>
-      <section class="new_project">
-        <p><%= link_to "New Project", new_project_path %></p>
+      
+      <section class="user_info">
+      <%= render 'shared/user_info', student: @student %>
+        
       </section>
     </aside>
-    <aside class="col-md-8">
-      <section class="current_project">
-        <div class="available_projects">
-          <h3>募集中の案件</h3>
+    <div class="col-md-8">
+      <section class="yourprojects">
+        <div class="bidded_projects">
+          <h3>興味がある案件</h3>
             <% @projects.each do |project| %>
-            <% if project.closed_on >=  DateTime.now && project.assigned_student == nil %>
+            <% if project.done != "Done" && project.assigned_student == nil %>
               <li id="project-<%= project.id %>">
                 <span class="content"><p>タイトル<%= link_to project.name, project %></span></br>
-                <span class="content"><p>興味のあるユーザー：<%= project.bidded_bids.count %>人</p></span></br>
                 <span class="content"><p>概要：</p><%= project.description %></span></br>
                 <span class="timestamp">
                   Posted <%= time_ago_in_words(project.created_at) %> ago.
@@ -25,13 +27,11 @@
         </div>
         
         <div class="ongoing_projects">
-          <h3>現在進行中の案件</h3>
+          <h3>あなたが行っている案件</h3>
             <% @projects.each do |project| %>
-            <% if project.assigned_student != nil %>
+            <% if project.done != "Done" && project.assigned_student == current_student %>
               <li id="project-<%= project.id %>">
                 <span class="content"><p>タイトル<%= link_to project.name, project %></span></br>
-                <span class="content"><p>決定した学生：<%= project.assigned_student.name %></p></span></br>
-                <span class="content"><p><%= link_to "プロジェクトを終了する", done_project_path(project), method: :put, data: { confirm: '最終成果物を確認しましたか？この案件を終了してよろしいでしょうか？' }%></p></span></br>
                 <span class="content"><p>概要：</p><%= project.description %></span></br>
                 <span class="timestamp">
                   Posted <%= time_ago_in_words(project.created_at) %> ago.
@@ -42,16 +42,26 @@
         </div>
         
         <div class="done_projects">
-          <h3>終了済・募集期限切れの案件</h3>
+          <h3>あなたが遂行した案件</h3>
             <% @projects.each do |project| %>
-            <% if project.done == "Done" || project.closed_on < DateTime.now %>
+            <% if project.done == "Done" && project.assigned_student == current_student %>
               <li id="project-<%= project.id %>">
                 <span class="content"><p>タイトル<%= link_to project.name, project %></span></br>
-                <% if project.assigned_student != nil %>
-                  <span class="content"><p>決定した学生：<%= project.assigned_student.name %></p></span></br>
-                  <% else %>
-                  <span class="content"><p>決定した学生：なし</p></span></br>
-                <% end %>
+                <span class="content"><p>概要：</p><%= project.description %></span></br>
+                <span class="timestamp">
+                  Posted <%= time_ago_in_words(project.created_at) %> ago.
+                </span>
+              </li>
+            <% end %>
+            <% end %>
+        </div>
+        
+        <div class="done_projects">
+          <h3>募集が終了した案件</h3>
+            <% @projects.each do |project| %>
+            <% if (project.assigned_student != nil && project.assigned_student != current_student) && project.done == "Done" %>
+              <li id="project-<%= project.id %>">
+                <span class="content"><p>タイトル<%= link_to project.name, project %></span></br>
                 <span class="content"><p>概要：</p><%= project.description %></span></br>
                 <span class="timestamp">
                   Posted <%= time_ago_in_words(project.created_at) %> ago.
@@ -61,5 +71,5 @@
             <% end %>
         </div>
       </section>
-    </aside>
-  </div>
+    </div>
+</div>

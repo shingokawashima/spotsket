@@ -4,13 +4,16 @@ class StudentsController < ApplicationController
 
   def index
     @projects = Project.where('closed_on >= ?', DateTime.now).where(assigned_student: nil)
-    if current_student.received_messages.where(read_flg: false).count > 0
-      flash[:notice] = "新しいメッセージがあります"
-    end
+    #if current_student.received_messages.where(read_flg: false).count > 0
+     # flash[:notice] = "新しいメッセージがあります"
+    #end
+  end
+  
+  def yourprojects
+    @projects = current_student.bidding_projects.all
   end
   
   def profile
-  
   end
   
   private

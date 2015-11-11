@@ -60,8 +60,20 @@ class ProjectsController < ApplicationController
     student = Student.find(params[:id])
     @project.assigned_student = student
     @project.save
-    redirect_to root_path, notice: 'You assigned a student to your project'
+    redirect_to nextstep_project_path(@project, student), notice: 'You assigned a student to your project'
   end 
+  
+  def nextstep
+    @project = Project.find(params[:project_id])
+    @student = Student.find(params[:id])
+  end
+  
+  def done
+    @project = Project.find(params[:id])
+    @project.done = "Done"
+    @project.save
+    redirect_to root_path
+  end
     
   private
   

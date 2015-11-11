@@ -1,6 +1,7 @@
 <h3>My Profile</h3>
 <h3><%= current_student.name %></h3>
-<h3>興味のある案件数:<%= current_student.bidding_bids.count %></h3>
+<h3>興味のある案件数:<%= current_student.bidding_projects.where(assigned_student: nil).where(done: nil).count %></h3>
 <h3>実績のある案件数:（工事中）</h3>
+<span><%= link_to "案件を見る", yourprojects_student_path(current_student) %></span>
 <span><%= link_to "プロフィールを編集する", '#' %></span>
 <span><%= link_to "メッセージボックスに移動", messages_path %></span>

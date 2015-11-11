@@ -21,10 +21,12 @@ Rails.application.routes.draw do
       get :bid
       delete :unbid
       get :bids
+      put :done
     end
   end
 
   put "/project/:project_id/student/:id" => "projects#assigned", as: "assigned_project"
+  get "/project/:project_id/student/:id/nextstep" => "projects#nextstep", as: "nextstep_project"
 
   resources :companies, only: [:index]
 
@@ -37,6 +39,7 @@ Rails.application.routes.draw do
   resources :students, only: [:index] do
     member do
       get :profile
+      get :yourprojects
     end
   end
   

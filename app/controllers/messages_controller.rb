@@ -41,6 +41,7 @@ class MessagesController < ApplicationController
       @message.content = params[:content]
       @message.student = current_student
       @message.company = @company
+      @message.sender = current_student.name
       @message.save
       redirect_to message_path(@student, @company), notice: 'Sent your message'
     end
@@ -49,6 +50,7 @@ class MessagesController < ApplicationController
       @message.content = params[:content]
       @message.student = @student
       @message.company = current_company
+      @message.sender = current_company.company_name
       @message.save
       redirect_to message_path(@student, @company), notice: 'Sent your message'
     end

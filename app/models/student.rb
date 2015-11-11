@@ -24,7 +24,7 @@ class Student < ActiveRecord::Base
   has_many :bidding_projects, through: :bidding_bids, source: :bidded
   
   # has_many :sending_messages, class_name:  "Message", foreign_key: "student_id", dependent:   :destroy
-  # has_many :mailing_companies, through: :sending_messages, source: :company
+  has_many :mailing_companies, through: :messages, source: :company
   
   #has_many :studentmailing_messages, class_name: "Message", foreign_key: "student_id", dependent: :destroy
   
