@@ -17,4 +17,6 @@ class Company < ActiveRecord::Base
   # has_many :sent_messages, class_name:  "Message", foreign_key: "company_id", dependent:   :destroy
   has_many :mailing_students, through: :messages, source: :student
   
+  mount_uploader :company_image, CompanyimageUploader
+  
 end

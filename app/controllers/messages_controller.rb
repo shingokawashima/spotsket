@@ -1,11 +1,19 @@
 class MessagesController < ApplicationController
+  layout 'basic'
   before_action :set_student, only: [:new, :create,:update]
   before_action :set_company, only: [:new, :create,:update]
   
   def index
-    @student = current_student
-    @messages = current_student.messages
-    @companies = @student.mailing_companies.uniq
+    if student_signed_in?
+      @student = current_student
+      @messages = current_student.messages
+      @companies = @student.mailing_companies.uniq
+    end
+    if company_signed_in?
+      @company = current_company
+      @messages = current_company.messages
+      @students = @company.mailing_students.uniq
+    end
   end
   
   

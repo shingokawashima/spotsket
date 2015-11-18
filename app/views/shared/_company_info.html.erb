@@ -1,4 +1,12 @@
-<%= link_to gravatar_for(current_company, size: 50), current_company %>
-<h1><%= current_company.name %></h1>
-<span><%= link_to "view my profile", current_company %></span>
-<span><%= pluralize(current_user.projects.count, "project") %></span>
+<h3>企業概要</h3>
+　<% if current_company.company_image? %>
+　　<%= image_tag current_company.company_image.thumb.url %>
+　<% else %>
+　　<%= image_tag 'noimage.png' %>
+　<% end %>
+<h3><%= current_company.company_name%></h3>
+<h3>募集中の案件:<%= current_company.projects.where(assigned_student: nil).where(done: nil).count %>件</h3>
+<h3>現在進行中の案件:<%= current_company.projects.where.not(assigned_student: nil).where(done: nil).count %>件</h3>
+<h3>終了した案件数:<%= current_company.projects.where.not(done: nil).count %>件</h3>
+<span><%= link_to "プロフィールを編集する", '#' %></span>
+<span><%= link_to "メッセージボックスに移動", messages_path %></span>

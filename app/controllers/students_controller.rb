@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 class StudentsController < ApplicationController
+  layout 'basic'
   before_action :set_student, only: [:profile]
 
   def index

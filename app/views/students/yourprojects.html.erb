@@ -1,5 +1,5 @@
 <div class="row">
-  <aside class="col-md-4">
+  <aside class="col-md-3 col-md-offset-1">
       <section class="project_search">
         <p>Search your project here</p>
       </section>
@@ -8,68 +8,172 @@
       <%= render 'shared/user_info', student: @student %>
         
       </section>
-    </aside>
+  </aside>
     <div class="col-md-8">
       <section class="yourprojects">
-        <div class="bidded_projects">
-          <h3>興味がある案件</h3>
-            <% @projects.each do |project| %>
-            <% if project.done != "Done" && project.assigned_student == nil %>
-              <li id="project-<%= project.id %>">
-                <span class="content"><p>タイトル<%= link_to project.name, project %></span></br>
-                <span class="content"><p>概要：</p><%= project.description %></span></br>
-                <span class="timestamp">
-                  Posted <%= time_ago_in_words(project.created_at) %> ago.
-                </span>
-              </li>
-            <% end %>
-            <% end %>
-        </div>
+        <div>
         
-        <div class="ongoing_projects">
-          <h3>あなたが行っている案件</h3>
-            <% @projects.each do |project| %>
-            <% if project.done != "Done" && project.assigned_student == current_student %>
-              <li id="project-<%= project.id %>">
-                <span class="content"><p>タイトル<%= link_to project.name, project %></span></br>
-                <span class="content"><p>概要：</p><%= project.description %></span></br>
-                <span class="timestamp">
-                  Posted <%= time_ago_in_words(project.created_at) %> ago.
-                </span>
-              </li>
-            <% end %>
-            <% end %>
-        </div>
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">興味のある案件</a></li>
+            <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">実行中案件</a></li>
+            <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">実行済み案件</a></li>
+            <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">募集終了案件</a></li>
+          </ul>
         
-        <div class="done_projects">
-          <h3>あなたが遂行した案件</h3>
-            <% @projects.each do |project| %>
-            <% if project.done == "Done" && project.assigned_student == current_student %>
-              <li id="project-<%= project.id %>">
-                <span class="content"><p>タイトル<%= link_to project.name, project %></span></br>
-                <span class="content"><p>概要：</p><%= project.description %></span></br>
-                <span class="timestamp">
-                  Posted <%= time_ago_in_words(project.created_at) %> ago.
-                </span>
-              </li>
-            <% end %>
-            <% end %>
-        </div>
+          <!-- Tab panes -->
+          <div class="tab-content">
+            
+            <div role="tabpanel" class="tab-pane active" id="home">
+                <div class="bidded_projects">
         
-        <div class="done_projects">
-          <h3>募集が終了した案件</h3>
-            <% @projects.each do |project| %>
-            <% if (project.assigned_student != nil && project.assigned_student != current_student) && project.done == "Done" %>
-              <li id="project-<%= project.id %>">
-                <span class="content"><p>タイトル<%= link_to project.name, project %></span></br>
-                <span class="content"><p>概要：</p><%= project.description %></span></br>
-                <span class="timestamp">
-                  Posted <%= time_ago_in_words(project.created_at) %> ago.
-                </span>
-              </li>
-            <% end %>
-            <% end %>
+                    <% @projects.each do |p| %>
+                    <% if p.done != "Done" && p.assigned_student == nil %>
+                      <article id="project_list">
+                        <div class="project_header">
+                          <div class="project_header_left">
+                            <p class="project_name"><%= link_to p.name, p %></p>
+                            <p class="project_type"><%= p.project_type %></p>
+                          </div>
+                          <div class="project_header_right">
+                            <div class="project_budget"><div class="project_memo">想定予算</div></br>～<%= p.budget %>円</div>
+                            <div class="project_period"><div class="project_memo">締め切り</div></br><%= p.period %></div>
+                            <div class="project_bids"><div class="project_memo">ビッド数</div></br><%= p.bidded_bids.count %></div>
+                          </div>
+                        </div>
+                        <div class="project_content">
+                        <p class="project_description"><%= p.description[0,150] %>... <%= link_to "詳細", p %></p>
+                        <figure class="project_company">
+                          <figcaption class="project_company_impage_name">
+                            <%= p.company.company_name %>
+                          </figcaption>
+                          <div class="project_company_image">
+                          　<% if p.company.company_image? %>
+                          　　<%= image_tag p.company.company_image.thumb.url %>
+                          　<% else %>
+                          　　<%= image_tag 'noimage.png' %>
+                          　<% end %>
+                          </div>
+                        </div>
+                      </article>
+                    <% end %>
+                    <% end %>
+                </div>
+            </div>
+            
+            <div role="tabpanel" class="tab-pane" id="profile">
+                <div class="ongoing_projects">
+        
+                    <% @projects.each do |p| %>
+                    <% if p.done != "Done" && p.assigned_student == current_student %>
+                      <article id="project_list">
+                        <div class="project_header">
+                          <div class="project_header_left">
+                            <p class="project_name"><%= link_to p.name, p %></p>
+                            <p class="project_type"><%= p.project_type %></p>
+                          </div>
+                          <div class="project_header_right">
+                            <div class="project_budget"><div class="project_memo">想定予算</div></br>～<%= p.budget %>円</div>
+                            <div class="project_period"><div class="project_memo">締め切り</div></br><%= p.period %></div>
+                            <div class="project_bids"><div class="project_memo">ビッド数</div></br><%= p.bidded_bids.count %></div>
+                          </div>
+                        </div>
+                        <div class="project_content">
+                        <p class="project_description"><%= p.description[0,150] %>... <%= link_to "詳細", p %></p>
+                        <figure class="project_company">
+                          <figcaption class="project_company_impage_name">
+                            <%= p.company.company_name %>
+                          </figcaption>
+                          <div class="project_company_image">
+                          　<% if p.company.company_image? %>
+                          　　<%= image_tag p.company.company_image.thumb.url %>
+                          　<% else %>
+                          　　<%= image_tag 'noimage.png' %>
+                          　<% end %>
+                          </div>
+                        </div>
+                      </article>
+                    <% end %>
+                    <% end %>
+                </div>
+            </div>
+            
+            <div role="tabpanel" class="tab-pane" id="messages">
+                <div class="done_projects">
+                    <% @projects.each do |p| %>
+                    <% if p.done == "Done" && p.assigned_student == current_student %>
+                      <article id="project_list">
+                        <div class="project_header">
+                          <div class="project_header_left">
+                            <p class="project_name"><%= link_to p.name, p %></p>
+                            <p class="project_type"><%= p.project_type %></p>
+                          </div>
+                          <div class="project_header_right">
+                            <div class="project_budget"><div class="project_memo">想定予算</div></br>～<%= p.budget %>円</div>
+                            <div class="project_period"><div class="project_memo">締め切り</div></br><%= p.period %></div>
+                            <div class="project_bids"><div class="project_memo">ビッド数</div></br><%= p.bidded_bids.count %></div>
+                          </div>
+                        </div>
+                        <div class="project_content">
+                        <p class="project_description"><%= p.description[0,150] %>... <%= link_to "詳細", p %></p>
+                        <figure class="project_company">
+                          <figcaption class="project_company_impage_name">
+                            <%= p.company.company_name %>
+                          </figcaption>
+                          <div class="project_company_image">
+                          　<% if p.company.company_image? %>
+                          　　<%= image_tag p.company.company_image.thumb.url %>
+                          　<% else %>
+                          　　<%= image_tag 'noimage.png' %>
+                          　<% end %>
+                          </div>
+                        </div>
+                      </article>
+                    <% end %>
+                    <% end %>
+                </div>
+            </div>
+            
+            <div role="tabpanel" class="tab-pane" id="settings">
+                <div class="ongoing_projects">
+        
+                    <% @projects.each do |p| %>
+                    <% if p.assigned_student != nil && p.assigned_student != current_student %>
+                      <article id="project_list">
+                        <div class="project_header">
+                          <div class="project_header_left">
+                            <p class="project_name"><%= link_to p.name, p %></p>
+                            <p class="project_type"><%= p.project_type %></p>
+                          </div>
+                          <div class="project_header_right">
+                            <div class="project_budget"><div class="project_memo">想定予算</div></br>～<%= p.budget %>円</div>
+                            <div class="project_period"><div class="project_memo">締め切り</div></br><%= p.period %></div>
+                            <div class="project_bids"><div class="project_memo">ビッド数</div></br><%= p.bidded_bids.count %></div>
+                          </div>
+                        </div>
+                        <div class="project_content">
+                        <p class="project_description"><%= p.description[0,150] %>... <%= link_to "詳細", p %></p>
+                        <figure class="project_company">
+                          <figcaption class="project_company_impage_name">
+                            <%= p.company.company_name %>
+                          </figcaption>
+                          <div class="project_company_image">
+                          　<% if p.company.company_image? %>
+                          　　<%= image_tag p.company.company_image.thumb.url %>
+                          　<% else %>
+                          　　<%= image_tag 'noimage.png' %>
+                          　<% end %>
+                          </div>
+                        </div>
+                      </article>
+                    <% end %>
+                    <% end %>
+                </div>
+            </div>
+          </div>
+        
         </div>
-      </section>
-    </div>
+     </section>
 </div>
+</div>
+

@@ -1,16 +1,31 @@
-<ul>
+<div>
   <% projects.each do |p| %>
-    <li id="project-<%= p.id %>">
-      <span class="content"><%= link_to p.name, p %></span></br>
-      <span class="content"><%= p.project_type %></span></br>
-      <span class="content"><%= p.description %></span></br>
-      <span class="content"><%= p.period %></span></br>
-      <span class="content"><%= p.budget %></span></br>
-      <span class="content"><%= p.company.company_name %></span></br>
-      <span class="content"><%= p.company.industry %></span></br>
-      <span class="timestamp">
-        Posted <%= time_ago_in_words(p.created_at) %> ago.
-      </span>
-    </li>
+    <article id="project_list">
+      <div class="project_header">
+        <div class="project_header_left">
+          <p class="project_name"><%= link_to p.name, p %></p>
+          <p class="project_type"><%= p.project_type %></p>
+        </div>
+        <div class="project_header_right">
+          <div class="project_budget"><div class="project_memo">想定予算</div></br>～<%= p.budget %>円</div>
+          <div class="project_period"><div class="project_memo">締め切り</div></br><%= p.period %></div>
+          <div class="project_bids"><div class="project_memo">ビッド数</div></br><%= p.bidded_bids.count %></div>
+        </div>
+      </div>
+      <div class="project_content">
+      <p class="project_description"><%= p.description[0,150] %>... <%= link_to "詳細", p %></p>
+      <figure class="project_company">
+        <figcaption class="project_company_impage_name">
+          <%= p.company.company_name %>
+        </figcaption>
+        <div class="project_company_image">
+        　<% if p.company.company_image? %>
+        　　<%= image_tag p.company.company_image.thumb.url %>
+        　<% else %>
+        　　<%= image_tag 'noimage.png' %>
+        　<% end %>
+        </div>
+      </div>
+    </article>
   <% end %>
-</ul>
+</div>

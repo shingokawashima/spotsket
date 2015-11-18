@@ -1,6 +1,5 @@
-<p>MESSAGE CREATION</p>
-
-<aside class="col-md-4">
+<div class="row">
+<aside class="col-md-3 col-md-offset-1">
   
   <% if student_signed_in? %>
     <section class="project_search">
@@ -23,37 +22,48 @@
 <div class="col-md-8">
   
   <% if student_signed_in?%>
-   <h3><%= @company.company_name %>とのやり取り</h3>
+   <div class="message_header"><h3><%= @company.company_name %>とのやり取り</h3></div>
       <% if @messages.any? %>
-        <ol class="messages">
+        <div class="messages">
           <%= render partial: 'shared/message', collection: @messages %>
-        </ol>
+        </div>
       <% end %>
   
-    <%= form_tag message_path(current_student, @company), method: 'post' do %>
-      <div class="field">
-        <%= text_area_tag :content %>
+      <div class="message_content">
+        　<% if current_student.student_image? %>
+        　　<%= image_tag current_student.student_image.thumb.url, :class => "img_preview" %>
+        　<% else %>
+        　　<%= image_tag 'noimage.png', :class => "img_preview" %>
+        　<% end %>
+        <div class="message_body">
+          <%= form_tag message_path(current_student, @company), method: 'post' do %>
+          <%= text_area_tag :content %>
+            <%= submit_tag "送信する", class: "btn btn-primary" %>
+          <% end %>
+        </div>
       </div>
-      <%= submit_tag "Post", class: "btn btn-primary" %>
-    <% end %>
   <% end %>
     
   <% if company_signed_in?%>
-    <h3><%= @company.company_name %>とのやり取り</h3>
+    <div class="message_header"><h3><%= @student.name %>とのやり取り</h3></div>
       <% if @messages.any? %>
-        <ol class="messages">
+        <div class="messages">
           <%= render partial: 'shared/message', collection: @messages %>
-        </ol>
+        </div>
       <% end %>
     
-      <%= form_tag message_path(@student, current_company), method: 'post' do %>
-        <div class="field">
+      <div class="message_content">
+        　<% if current_company.company_image? %>
+        　　<%= image_tag current_company.company_image.thumb.url, :class => "img_preview" %>
+        　<% else %>
+        　　<%= image_tag 'noimage.png', :class => "img_preview" %>
+        　<% end %>
+        <div class="message_body">
+          <%= form_tag message_path(@student, current_company), method: 'post' do %>
           <%= text_area_tag :content %>
+            <%= submit_tag "送信する", class: "btn btn-primary" %>
+          <% end %>
         </div>
-        <%= submit_tag "Post", class: "btn btn-primary" %>
-      <% end %>
+      </div>
   <% end %>
-
-
-
 </div>

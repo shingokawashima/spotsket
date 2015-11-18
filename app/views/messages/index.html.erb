@@ -1,5 +1,6 @@
 <div class="row">
-  <aside class="col-md-4">
+  <aside class="col-md-3 col-md-offset-1">
+      <% if student_signed_in? %>
       <section class="project_search">
         <p>Search your project here</p>
       </section>
@@ -7,20 +8,65 @@
       <section class="user_info">
       <%= render 'shared/user_info', student: @student %>
       </section>
+      <% end %>
+      
+      <% if company_signed_in? %>
+      <section class="new_project">
+        <p><%= link_to "New Project", new_project_path %></p>
+      </section>
+      
+      <section class="company_info">
+        <%= render 'shared/company_info' %>
+      </section>
+      <% end %>
+      
   </aside>
+ 
   <div class="col-md-8">
-      <h3>やりとり一覧</h3>
+      <div class="message_header"><h3>メッセージ一覧</h3></div>
       
       <% if student_signed_in? %>
-        <ul>
+        <div>
           <% @companies.each do |c| %>
-            <li>
-              <span class="company"><%= c.company_name %></span>
-              <span class="company"><%= c.messages.order("created_at").last.content %></span> 
-              <%= link_to "メッセージを見る・書く", message_path(current_student, c), method: :put %>
-            </li>
+            <div class="message_content">
+　            <% if c.company_image? %>
+　　            <%= image_tag c.company_image.thumb.url, class: "img_preview" %>
+              　<% else %>
+              　　<%= image_tag 'noimage.png', class: "img_preview" %>
+              <% end %> 
+              <div class="message_body">
+                <span class="company"><%= c.company_name %></span></br>
+                <span class="company"><%= c.messages.order("created_at").last.content[0,60] %>...</span></br>
+                <span class="timestamp">
+                  <%= c.messages.order("created_at").last.created_at.strftime("%Y/%m/%d") %>
+                </span>
+              </div>
+              <%= link_to "", message_path(current_student, c), method: :put, class: "message_link" %>
+            </div>
           <% end %>
-        </ul>
+        </div>
+      <% end %>
+      
+      <% if company_signed_in? %>
+        <div>
+          <% @students.each do |s| %>
+            <div class="message_content">
+　            <% if s.student_image? %>
+　　            <%= image_tag s.student_image.thumb.url, class: "img_preview" %>
+              　<% else %>
+              　　<%= image_tag 'noimage.png', class: "img_preview" %>
+              <% end %>
+              <div class="message_body">
+                <span class="company"><%= s.name %></span></br>
+                <span class="company"><%= s.messages.order("created_at").last.content[0,60] %>...</span></br>
+                <span class="timestamp">
+                  <%= s.messages.order("created_at").last.created_at.strftime("%Y/%m/%d") %>
+                </span>
+              </div>
+              <%= link_to "", message_path(s, current_company), method: :put, class: "message_link" %>
+            </div>
+          <% end %>
+        </div>
       <% end %>
   </div>
 </div>

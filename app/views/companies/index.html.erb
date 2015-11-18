@@ -1,9 +1,11 @@
   <div class="row">
     <aside class="col-md-4">
-      <section class="company_info">
-      </section>
       <section class="new_project">
         <p><%= link_to "New Project", new_project_path %></p>
+      </section>
+      
+      <section class="company_info">
+      <%= render 'shared/company_info' %>
       </section>
     </aside>
     <aside class="col-md-8">
@@ -11,7 +13,7 @@
         <div class="available_projects">
           <h3>募集中の案件</h3>
             <% @projects.each do |project| %>
-            <% if project.closed_on >=  DateTime.now && project.assigned_student == nil %>
+            <% if project.assigned_student == nil %>
               <li id="project-<%= project.id %>">
                 <span class="content"><p>タイトル<%= link_to project.name, project %></span></br>
                 <span class="content"><p>興味のあるユーザー：<%= project.bidded_bids.count %>人</p></span></br>
@@ -42,9 +44,9 @@
         </div>
         
         <div class="done_projects">
-          <h3>終了済・募集期限切れの案件</h3>
+          <h3>終了済の案件</h3>
             <% @projects.each do |project| %>
-            <% if project.done == "Done" || project.closed_on < DateTime.now %>
+            <% if project.done == "Done" %>
               <li id="project-<%= project.id %>">
                 <span class="content"><p>タイトル<%= link_to project.name, project %></span></br>
                 <% if project.assigned_student != nil %>

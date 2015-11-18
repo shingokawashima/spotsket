@@ -1,26 +1,32 @@
-<h2>Log in Student</h2>
+<h2>企業向けログイン</h2>
 
+<div class="row">
+  <div class="col-md-4 col-md-offset-4">
+    
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
+  <div class="form-group">
+    <%= f.label :email, "ご担当者Eメール"%><br />
     <%= f.email_field :email, autofocus: true %>
   </div>
 
   <div class="field">
-    <%= f.label :password %><br />
+    <%= f.label :password, "パスワード" %><br />
     <%= f.password_field :password, autocomplete: "off" %>
   </div>
 
+  <div class="form-group">
   <% if devise_mapping.rememberable? -%>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
-    </div>
+      <span class="checkbox-inline"><%= f.check_box :remember_me %></span>
+      <%= f.label :remember_me, "次回以降自動ログイン" %>
   <% end -%>
+  </div>
 
   <div class="actions">
-    <%= f.submit "Log in" %>
+    <%= f.submit "ログイン", class: "btn btn-large btn-primary" %>
   </div>
 <% end %>
 
 <%= render "companies/shared/links" %>
+
+  </div>
+</div>

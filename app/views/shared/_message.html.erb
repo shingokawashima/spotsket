@@ -1,8 +1,53 @@
-<li id="message-<%= message.id %>">
-  <span class="sender"><%= message.sender %></span> 
-  <span class="content"><%= message.content %></span>
-  <span class="content"><%= message.read_flg %></span>  
-  <span class="timestamp">
-    Posted <%= time_ago_in_words(message.created_at) %> ago.
-  </span>
-</li>
+<div class="message_content">
+
+    <% if student_signed_in? %>
+      <% if message.sender == current_student.name %>
+        　<% if current_student.student_image? %>
+        　　<%= image_tag current_student.student_image.thumb.url, :class => "img_preview" %>
+        　<% else %>
+        　　<%= image_tag 'noimage.png', :class => "img_preview" %>
+        　<% end %>
+      <% else %>
+    
+        　<% if message.company.company_image? %>
+        　　<%= image_tag message.mailing_company.company_image.thumb.url, :class => "img_preview" %>
+        　<% else %>
+        　　<%= image_tag 'noimage.png', :class => "img_preview" %>
+        　<% end %>
+      <% end %>
+    <% end %>
+    
+    <% if company_signed_in? %>
+      <% if message.sender == current_company.company_name %>
+        　<% if current_company.company_image? %>
+        　　<%= image_tag current_company.company_image.thumb.url, :class => "img_preview" %>
+        　<% else %>
+        　　<%= image_tag 'noimage.png', :class => "img_preview" %>
+        　<% end %>
+      <% else %>
+    
+        　<% if message.student.student_image? %>
+        　　<%= image_tag message.student.student_image.thumb.url, :class => "img_preview" %>
+        　<% else %>
+        　　<%= image_tag 'noimage.png', :class => "img_preview" %>
+        　<% end %>
+      <% end %>
+    <% end %>
+
+    <div class="message_body">
+    <p>
+      <span class="sender"><%= message.sender %></span></br>
+      <span class="content"><%= message.content %></span></br>
+      <span class="read_flg">
+        <% if message.read_flg == true %>
+          <%= "開封済み" %>
+        <% else %>
+          <%= "" %>
+        <% end %>
+      </span>  
+    </p>
+    <span class="timestamp">
+      <%= message.created_at.strftime("%Y/%m/%d") %>
+    </span>
+  </div>
+</div>

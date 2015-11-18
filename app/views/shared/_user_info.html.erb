@@ -1,12 +1,23 @@
-<h3>My Profile</h3>
-　<% if current_student.student_image? %>
-　　<%= image_tag current_student.student_image.thumb.url %>
-　<% else %>
-　　<%= image_tag 'noimage.png' %>
-　<% end %>
-<h3><%= current_student.name %></h3>
-<h3>興味のある案件数:<%= current_student.bidding_projects.where(assigned_student: nil).where(done: nil).count %></h3>
-<h3>実績のある案件数:（工事中）</h3>
-<span><%= link_to "案件を見る", yourprojects_student_path(current_student) %></span>
-<span><%= link_to "プロフィールを編集する", '#' %></span>
-<span><%= link_to "メッセージボックスに移動", messages_path %></span>
+<div class="panel panel-default">
+<div class="panel-heading">プロフィール</div>
+  <div class="panel-body">
+    　<% if current_student.student_image? %>
+    　　<%= image_tag current_student.student_image.thumb.url %>
+    　<% else %>
+    　　<%= image_tag 'noimage.png' %>
+    　<% end %>
+    　
+    <div class="profile_summary">
+      <p class="student_name"><%= current_student.name %><p>
+      <p class="student_university"><%= current_student.university %><p> 
+      <p class="student_bid">興味のある案件数:<%= current_student.bidding_projects.where(assigned_student: nil).where(done: nil).count %></p>
+      <p class="student_bid">実績のある案件数:<%= current_student.bidding_projects.where(assigned_student: current_student).where(done: 'Done').count %></p>
+    </div>
+</div>
+</div>
+<ul class="list-group">
+  <li class="list-group-item"><span class="glyphicon glyphicon-home"></span> <%= link_to "ホーム", root_path %></li>
+  <li class="list-group-item"><span class="glyphicon glyphicon-ok"></span> <%= link_to "応募した案件", yourprojects_student_path(current_student) %></li>
+  <li class="list-group-item"><span class="glyphicon glyphicon-envelope"></span> <%= link_to "メッセージボックス", messages_path %><span class="badge">5</span></li>
+  <li class="list-group-item"><span class="glyphicon glyphicon-wrench"></span> <%= link_to "プロフィール編集", '#' %></li>
+</ul>

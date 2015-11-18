@@ -1,56 +1,47 @@
-<h2>投稿済み案件</h2>
+<div class="row">
+  <div class="go_back col-md-7 col-md-offset-1">
+  <%= link_to "一覧に戻る", root_path %>
+  </div>
+</div>
 
 <div class="row">
-  <div class="col-md-6 col-md-offset-3">
-    <div class="project_content">
-      
-      <h2>案件タイトル</h2>
-      <p><%= @project.name %></p>
+  <div class="project_detail col-md-7 col-md-offset-1">
+    <div class="project_field">
+      <h2><%= @project.name %></h2>
     </div>
     
-    <div class="bidders_for_project">
-    <% if company_signed_in? %>
-      <p>興味のあるユーザー:<%= link_to @project.bidded_bids.count, bids_project_path(@project) %></p>
-    <% end %>
-    </div>
-    
-    <div class="project_content">
-      <h2>案件の種類</h2>
+    <div class="project_field">
+      <h4>案件の種類</h4>
       <p><%= @project.project_type %></p>
     </div>
     
-    <div class="project_content">
-      <h2>案件の緊急性</h2>
-      <p><%= @project.emergent %></p>
-    </div>
-    
-    <div class="project_content">
-      <h2>概要</h2>
+    <div class="project_field">
+      <h4>概要</h4>
       <p><%= @project.description %></p>
     </div>
     
-    <div class="project_content">
-      <h2>予算</h2>
-      <p><%= @project.budget %></p>
+    <div class="project_field">
+      <h4>想定予算</h4>
+      <p>～<%= @project.budget %>円</p>
     </div>
     
-    <div class="project_content">
-      <h2>想定所要時間</h2>
-      <p><%= @project.hours %></p>
+    <div class="project_field">
+      <h4>想定ワークロード</h4>
+      <p>計<%= @project.hours %>時間程度</p>
     </div>
 
-    <div class="field">
-      <h2>案件自体の締め切り</h2>
-      <p><%= @project.period %></p>
-    </div>
-  
-    <div class="field">
-      <h2>募集の締め切り</h2>
+    <div class="project_field">
+      <h4>募集の締め切り</h4>
       <p><%= @project.closed_on %></p>
     </div>
     
-    <div class="project_content">
-      <h2>あると良いスキル</h2>
+    <div class="project_field">
+      <h4>案件自体の締め切り</h4>
+      <p><%= @project.period %></p>
+    </div>
+    
+    <div class="project_field">
+      <h4>あると良いスキル</h4>
       <ul>
         <% if @project.skill1 %><li>SKILL 1</li><% end %>
         <% if @project.skill2 %><li>SKILL 2</li><% end %>
@@ -59,36 +50,49 @@
       </ul>
     </div>
     
-    <div class="project_content">
-      <h2>あると良い経験</h2>
+    <div class="project_field">
+      <h4>あると良い経験</h4>
       <p><%= @project.required_background %></p>
     </div>
     
-    <div class="project_content">
-      <h2>案件受注が決まった学生</h2>
+  </div>
+  
+  <div class="col-md-4">
+    <div class="project_sidebar panel panel-default">
+    <% if student_signed_in? %>
+      <div class="panel-heading">企業情報</div>
+      <div class="panel-body">
+        <p><span>企業名</span><br/><%= @project.company.company_name %></p>
+        <p><span>業界</span><br/><%= @project.company.industry %></p>
+        <p><span>従業員数</span><br/><%= @project.company.company_size %></p>
+        <p><span>URL</span><br/><%= @project.company.company_hp %></p>
+      </div>
+    </div>
+      <div class="project_sidebar_btn">
+        <% if current_student.bidding?(@project) %>
+          <%= link_to "興味をなくす", unbid_project_path(@project), method: :delete, class: "btn btn-danger" %>
+        <% else %>
+          <%= link_to "興味がある", bid_project_path(@project), class: "btn btn-primary" %>
+        <% end %>
+      </div>
+      <div class="project_sidebar_btn">
+      <%= link_to "案件について問い合わせる", message_path(current_student, @project.company), method: :put, class: "btn btn-info"  %>
+      </div>
+    <% end %>
+    
+    <% if company_signed_in? %>
+    <div class="bidders_for_project">
+      <p>興味のあるユーザー:<%= link_to @project.bidded_bids.count, bids_project_path(@project) %></p>
+    </div>
+    <div class="project_field">
+      <h4>案件受注が決まった学生</h4>
       <% if @project.assigned_student != nil %>
         <p><%= @project.assigned_student.name %></p>
       <% end %>
     </div>
-    
-    
-    <% if student_signed_in? %>
-      <h2>企業情報</h2>
-      <p><%= @project.company.name %></p>
-      <%= link_to "この会社に問い合わせる", message_path(current_student, @project.company), method: :put %>
-    <% end %>
-    
-    <% if student_signed_in? %>
-      <% if current_student.bidding?(@project) %>
-        <%= link_to "興味をなくす", unbid_project_path(@project), method: :delete %>
-      <% else %>
-        <%= link_to "興味ある", bid_project_path(@project) %>
-      <% end %>
-    <% end %>
-    
-    <% if company_signed_in? %>
     <%= link_to "edit", edit_project_path(@project) %>
     <%= link_to "destroy", @project, method: :delete, data: { confirm: '削除してもよろしいですか？' } %>
     <% end %>
+    </div>
   </div>
 </div>
